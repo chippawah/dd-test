@@ -25,9 +25,7 @@ services:
       - ./.env
     ports:
       - 3000:3000
-    labels:
-      com.datadoghq.ad.logs: '[{"source": "winston", "service": "dd-test"}]'
     volumes:
-      - ${PWD}/index.js:/app/index.js
+      - ${PWD}/src:/app/src
       - ${PWD}/package.json:/app/package.json
       - ${PWD}/yarn.lock:/app/yarn.lock

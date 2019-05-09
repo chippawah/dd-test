@@ -1,0 +1,22 @@
+{
+  "name": "dd-test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "chippawah <charles@loungebuddy.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-datadog": "^0.0.7",
+    "dd-trace": "^0.11.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.4",
+    "kew": "^0.7.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
+  }
+}

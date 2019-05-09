@@ -6,15 +6,29 @@ const tracer = require('dd-trace').init({
   hostname: process.env.DD_AGENT_HOST || 'localhost',
   port: process.env.DD_TRACE_AGENT_PORT || 8126,
   service: 'dd-test',
+  logInjection: true,
+  analytics: true,
 });
 
+tracer.use('winston', { enabled: true })
+
+const winston = require('winston');
+
+const logger = winston.createLogger({
+  format: winston.format.json(),
+  exitOnError: false,
+  transports: [
+    new winston.transports.Console(),
+  ]
+})
 const express = require('express');
+const winstonMiddleware = require('express-winston');
 const Q = require('kew');
 const ddConnect = require('connect-datadog');
 const bodyParser = require('body-parser');
 
 const someFn = () => {
-  console.log('Running some function...');
+  logger.log('info', 'Running some function...');
   const opts = {
     type: 'custom',
     resource: 'dd-test someFn.js',
@@ -38,6 +52,8 @@ app = express();
 
 app.use(bodyParser.json());
 
+app.use(winstonMiddleware.logger({ winstonInstance: logger }));
+
 app.get('/ping', (req, res) => {
   const opts = {
     tags: {
@@ -47,7 +63,7 @@ app.get('/ping', (req, res) => {
     type: 'web',
     resource: 'dd-test GET /ping'
   }
-  console.log('received ping... sending PONG');
+  logger.log('info', 'received ping... sending PONG');
   tracer.trace('ping', opts, (span) => {
     someFn()
       .then((result) => {
@@ -59,7 +75,7 @@ app.get('/ping', (req, res) => {
           });
       })
       .catch((err) => {
-        console.log(err)
+        logger.log('info', err)
         res
           .status(500)
           .send('whoosh');
@@ -79,8 +95,8 @@ const port = process.env.PORT || 3000;
 
 const server = app.listen(port, (err) => {
   if (err) {
-    console.log('Error starting server', err);
+    logger.log('info', 'Error starting server', err);
   } else {
-    console.log(`Listening on port: ${port}`);
+    logger.log('info', `Listening on port: ${port}`);
   }
 });

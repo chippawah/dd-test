@@ -10,7 +10,9 @@
     "dd-trace": "^0.11.0",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
-    "kew": "^0.7.0"
+    "express-winston": "^3.1.0",
+    "kew": "^0.7.0",
+    "winston": "^3.2.1"
   },
   "scripts": {
     "start": "node index.js",

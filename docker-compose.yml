@@ -9,6 +9,12 @@ services:
       - ./dd-data/datadog-agent/run:/opt/datadog-agent/run:rw
     env_file:
       - ./.agent.env
+    environment:
+      - DD_APM_ENABLED=true
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+      - DD_AC_INCLUDE=image:dd-test_example_1 # Use the image docker-compose creates
+      - DD_AC_EXCLUDE=image:.*
+      - DD_LOGS_ENABLED=true
   example:
     build:
       context: ./
@@ -19,4 +25,6 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./:/app
+      - ${PWD}/index.js:/app/index.js
+      - ${PWD}/package.json:/app/package.json
+      - ${PWD}/yarn.lock:/app/yarn.lock

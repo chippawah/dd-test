@@ -4,3 +4,4 @@ README.md
 Dockerfile
 .git/
 dd-data/
+docker-compose.yml

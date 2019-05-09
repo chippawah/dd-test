@@ -15,7 +15,10 @@ tracer.use('winston', { enabled: true })
 const winston = require('winston');
 
 const logger = winston.createLogger({
-  format: winston.format.json(),
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.json(),
+  ),
   exitOnError: false,
   transports: [
     new winston.transports.Console(),

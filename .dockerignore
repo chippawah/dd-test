@@ -1,0 +1,6 @@
+node_modules/
+imgs/
+README.md
+Dockerfile
+.git/
+dd-data/

@@ -6,7 +6,7 @@ module.exports = () => {
   logger.log('info', 'Running some promise function...');
   const opts = {
     type: 'custom',
-    resource: 'dd-test someFn.js',
+    resource: 'dd-test somePromiseFn.js',
     tags: {
       'foo': 'bar'
     },

@@ -5,6 +5,7 @@
   "author": "chippawah <charles@loungebuddy.com>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.19.0",
     "connect-datadog": "^0.0.7",
     "dd-trace": "^0.11.0",
@@ -20,5 +21,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.19.0"
+  },
+  "nodemonConfig": {
+    "ignore": ["dd-data/*", "node_modules/*"]
   }
 }

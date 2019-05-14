@@ -17,7 +17,7 @@ router.get('/somePromiseFn', (req, res) => {
     resource: 'dd-test GET /somePromiseFn'
   }
   logger.log('info', 'Calling promise fn');
-  return tracer.trace('somePromiseFn', opts, (span) => {
+  return tracer.trace('somePromiseFn-route', opts, (span) => {
     return somePromiseFn()
       .then((result) => {
         return res
@@ -46,7 +46,7 @@ router.get('/regularFn', (req, res) => {
     resource: 'dd-test GET /regularFn'
   }
   logger.log('info', 'Calling regular fn');
-  return tracer.trace('regularFn', opts, (span) => {
+  return tracer.trace('regularFn-route', opts, (span) => {
     const result = regularFn();
     return res
         .status(200)

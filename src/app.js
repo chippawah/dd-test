@@ -1,6 +1,7 @@
 const express = require('express');
 const winstonMiddleware = require('express-winston');
 const bodyParser = require('body-parser');
+const ddConnect = require('connect-datadog');
 
 const logger = require('./logger');
 const router = require('./router');

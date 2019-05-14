@@ -12,10 +12,12 @@ services:
     environment:
       - DD_APM_ENABLED=true
       - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
-      - DD_AC_INCLUDE="image:dd-test_example_1" # Use the image docker-compose creates
+      # - DD_AC_INCLUDE="image:dd-test_example_1" # Use the image docker-compose creates
       - DD_AC_EXCLUDE="image:* name:datadog service:agent"
       - DD_LOGS_ENABLED=true
       - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+    ports:
+      - 8126:8126
   example:
     build:
       context: ./

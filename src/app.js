@@ -1,6 +1,5 @@
 const express = require('express');
 const winstonMiddleware = require('express-winston');
-const ddConnect = require('connect-datadog');
 const bodyParser = require('body-parser');
 
 const logger = require('./logger');
@@ -14,7 +13,7 @@ app.use(ddConnect({
   response_code: true,
   env: process.env.NODE_ENV || 'local',
   tags: [
-    'app:express_test'
+    'dd-test:express'
   ],
 }));
 

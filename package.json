@@ -21,5 +21,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.19.0"
+  },
+  "nodemonConfig": {
+    "ignore": ["dd-data/*", "node_modules/*"]
   }
 }

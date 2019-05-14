@@ -3,7 +3,13 @@ const axios = require('axios');
 const logger = require('./logger');
 const tracer = require('./tracer');
 
+// Using wrap on a synchronous fn
+const regularFn = tracer.wrap('regularFn', () => {
+  logger.log('info', 'Running some regular function...');
+  return "Regular sync fn!";
+});
 
+// Both 'test' 'fetcher' are defining a fn and tracing inside of it
 const test = () => {
   logger.log('info', 'Running some promise function...');
   const opts = {
@@ -34,11 +40,14 @@ const fetcher = () => {
   });
 }
 
+
+// Just calling tracer.trace works as well.
 tracer.trace('testCall', {}, (span) => {
   return test().then((result) => {
     return fetcher().then((_result) => {
       logger.log('info', result, _result);
-      span.finish()
+      const syncResult = regularFn();
+      return syncResult
     });
   })
 });
